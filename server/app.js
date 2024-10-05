@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Options
 const corsOptions = {
-  origin: 'https://lms-main-frontend-1.onrender.com', // Use process.env.FRONTEND_URL in production
+  origin: 'https://cool-mandazi-e8d525.netlify.app', // Use process.env.FRONTEND_URL in production
   credentials: true,
 };
 
