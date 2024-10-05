@@ -1,27 +1,32 @@
 import cookieParser from 'cookie-parser';
-config();
-import express from 'express';
 import { config } from 'dotenv';
+import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import errorMiddleware from './middlewares/error.middleware.js';
 
+config();
 const app = express();
 
 // Middlewares
 // Built-In
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Third-Party
-app.use(
-  cors({
-    origin: [process.env.FRONTEND_URL],
-    credentials: true,
-  })
-);
-app.options('*', cors());
-app.use(morgan('dev'));
-app.use(cookieParser());
+
+// CORS Options
+const corsOptions = {
+  origin: 'https://lms-main-frontend-1.onrender.com', // Use process.env.FRONTEND_URL in production
+  credentials: true,
+};
+
+// Use CORS middleware
+app.use(cors(corsOptions));
+
+// Custom middleware to set CORS headers
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+  next();
+});
 
 // Server Status Check Route
 app.get('/ping', (_req, res) => {
