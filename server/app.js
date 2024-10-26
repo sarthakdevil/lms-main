@@ -15,19 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Options
 const corsOptions = {
-  origin: 'https://cool-mandazi-e8d525.netlify.app', // Use process.env.FRONTEND_URL in production
+  origin: 'http://localhost:3000', // Use process.env.FRONTEND_URL in production
   credentials: true,
 };
-
 // Use CORS middleware
 app.use(cors(corsOptions));
-
-// Custom middleware to set CORS headers
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
-  next();
-});
-
 // Server Status Check Route
 app.get('/ping', (_req, res) => {
   res.send('Pong');
