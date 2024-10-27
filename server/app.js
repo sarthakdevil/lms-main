@@ -8,25 +8,33 @@ import errorMiddleware from './middlewares/error.middleware.js';
 config();
 const app = express();
 
-// Middlewares
-// Built-In
+// Middleware Setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS Options
 const corsOptions = {
-  origin: [process.env.FRONTEND_URL] || "http://localhost:3000",
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
-// Use CORS middleware
+
+// Use CORS middleware globally
 app.use(cors(corsOptions));
-// Server Status Check Route
+
+// Explicitly handle OPTIONS requests for all routes
+app.options('*', cors(corsOptions));
+
+// Set Headers Middleware
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+  res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_URL || "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
+
+// Server Status Check Route
 app.get('/ping', (_req, res) => {
   res.send('Pong');
 });
@@ -41,7 +49,7 @@ app.use('/api/v1/courses', courseRoutes);
 app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1', miscRoutes);
 
-// Default catch all route - 404
+// Default catch-all route - 404
 app.all('*', (_req, res) => {
   res.status(404).send('OOPS!!! 404 Page Not Found');
 });
