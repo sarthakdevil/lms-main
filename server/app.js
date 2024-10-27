@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
   origin: [process.env.FRONTEND_URL] || "http://localhost:3000",
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 // Use CORS middleware
 app.use(cors(corsOptions));
