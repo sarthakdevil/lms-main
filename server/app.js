@@ -14,24 +14,25 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Options
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  origin: process.env.FRONTEND_URL, // set to exact frontend URL
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 // Use CORS middleware globally
 app.use(cors(corsOptions));
 
+// Middleware to ensure Access-Control-Allow-Origin is explicitly set
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL || "*");
+  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL); // exact URL, not *
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 
-// Explicitly handle OPTIONS requests for all routes
+// Explicitly handle OPTIONS requests for preflight
 app.options('*', cors(corsOptions));
 
 // Server Status Check Route
@@ -39,6 +40,7 @@ app.get('/ping', (_req, res) => {
   res.send('Pong');
 });
 
+// Import routes
 import userRoutes from './routes/user.routes.js';
 import courseRoutes from './routes/course.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
@@ -53,6 +55,12 @@ app.use('/api/v1', miscRoutes);
 app.all('*', (_req, res) => {
   res.status(404).send('OOPS!!! 404 Page Not Found');
 });
+
+// Custom error handling middleware
+app.use(errorMiddleware);
+
+export default app;
+
 
 // Custom error handling middleware
 app.use(errorMiddleware);
