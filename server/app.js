@@ -22,7 +22,8 @@ const corsOptions = {
 // Use CORS middleware
 app.use(cors(corsOptions));
 // Server Status Check Route
-res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
   next();
 });
 app.get('/ping', (_req, res) => {
