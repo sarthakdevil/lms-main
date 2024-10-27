@@ -60,9 +60,3 @@ app.all('*', (_req, res) => {
 app.use(errorMiddleware);
 
 export default app;
-
-
-// Custom error handling middleware
-app.use(errorMiddleware);
-
-export default app;
