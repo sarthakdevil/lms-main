@@ -26,14 +26,6 @@ app.use(cors(corsOptions));
 // Explicitly handle OPTIONS requests for all routes
 app.options('*', cors(corsOptions));
 
-// Set Headers Middleware
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  next();
-});
-
 // Server Status Check Route
 app.get('/ping', (_req, res) => {
   res.send('Pong');
