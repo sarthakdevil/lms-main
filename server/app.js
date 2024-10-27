@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Options
 const corsOptions = {
-  origin: "https://lms-main-kappa.vercel.app/", // set to exact frontend URL
+  origin: "https://lms-main-kappa.vercel.app", // set to exact frontend URL
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -25,7 +25,7 @@ app.use(cors(corsOptions));
 
 // Middleware to ensure Access-Control-Allow-Origin is explicitly set
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://lms-main-kappa.vercel.app/"); // exact URL, not *
+  res.header("Access-Control-Allow-Origin", "https://lms-main-kappa.vercel.app"); // exact URL, not *
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
