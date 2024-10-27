@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Options
 const corsOptions = {
-  origin: 'http://localhost:3000', // Use process.env.FRONTEND_URL in production
+  origin:  origin: [process.env.FRONTEND_URL] || "http://localhost:3000",
   credentials: true,
 };
 // Use CORS middleware
@@ -25,7 +25,6 @@ app.get('/ping', (_req, res) => {
   res.send('Pong');
 });
 
-// Import all routes
 import userRoutes from './routes/user.routes.js';
 import courseRoutes from './routes/course.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
