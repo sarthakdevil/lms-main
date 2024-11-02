@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // CORS Options
 const corsOptions = {
-  origin: "https://lms-main-git-main-yghs-projects.vercel.app/", // set to exact frontend URL
+  origin: "https://lms-main-git-main-yghs-projects.vercel.app", // set to exact frontend URL
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
