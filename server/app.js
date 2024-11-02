@@ -24,7 +24,7 @@ app.use(cors(corsOptions));
 
 // Middleware to ensure Access-Control-Allow-Origin is explicitly set
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://lms-main-gzu1skvht-yghs-projects.vercel.app"); // exact URL, not *
+  res.header("Access-Control-Allow-Origin", "https://lms-main-l2e3ku5lh-yghs-projects.vercel.app"); // exact URL, not *
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
