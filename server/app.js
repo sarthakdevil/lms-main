@@ -10,7 +10,7 @@ app.use(morgan('dev'));
 // Middleware Setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 // CORS Options
 const corsOptions = {
   origin: "https://lms-main-l2e3ku5lh-yghs-projects.vercel.app", // set to exact frontend URL
@@ -21,19 +21,6 @@ const corsOptions = {
 
 // Use CORS middleware globally
 app.use(cors(corsOptions));
-
-// Middleware to ensure Access-Control-Allow-Origin is explicitly set
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://lms-main-l2e3ku5lh-yghs-projects.vercel.app"); // exact URL, not *
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
-
-// Explicitly handle OPTIONS requests for preflight
-app.options('*', cors(corsOptions));
-app.use(cookieParser());
 // Server Status Check Route
 app.get('/ping', (_req, res) => {
   res.send('Pong');
