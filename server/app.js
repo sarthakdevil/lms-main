@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 
 // Explicitly handle OPTIONS requests for preflight
 app.options('*', cors(corsOptions));
-
+app.use(cookieParser());
 // Server Status Check Route
 app.get('/ping', (_req, res) => {
   res.send('Pong');
